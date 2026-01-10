@@ -1,38 +1,56 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import {
     BadgeQuestionMark,
     Bell,
-    BellIcon,
     LogOutIcon,
+    PanelLeft,
     Search,
     Settings,
 } from "lucide-react";
-import { buttonVariants } from "./ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const Navbar = () => {
+const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
     return (
-        <>
-            <div className="sticky top-0 left-0 w-full h-16 flex items-center justify-between border-b border-gray-100 px-12 bg-background">
-                <div className="uppercase font-semibold">scriba</div>
-                <div className="h-full flex items-center gap-8">
-                    <Link
-                        href="/"
-                        className="text-sm"
+        <header className="sticky top-0 z-100 h-16 w-full border-b bg-background">
+            <div className="flex h-full items-center justify-between px-6 md:px-8">
+                {/* Left */}
+                <div className="flex items-center gap-4 font-semibold uppercase">
+                    <button
+                        onClick={toggleSidebar}
+                        aria-label="Toggle sidebar"
+                        className="rounded-md p-2 hover:bg-gray-100 transition"
                     >
+                        <PanelLeft size={22} strokeWidth={1.8} />
+                    </button>
+                    scriba
+                </div>
+
+                {/* Right */}
+                <div className="flex items-center gap-6">
+                    <Link href="/" className="text-sm hover:underline capitalize">
                         write
                     </Link>
 
-                    <Search size={18} strokeWidth={1.8}/>
-                    <Bell size={18} strokeWidth={1.8}/>
+                    <Search
+                        size={18}
+                        strokeWidth={1.8}
+                        className="cursor-pointer"
+                    />
+                    <Bell
+                        size={18}
+                        strokeWidth={1.8}
+                        className="cursor-pointer"
+                    />
+
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Avatar>
@@ -42,7 +60,7 @@ const Navbar = () => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
                             className="rounded-sm p-4"
-                            sideOffset={8}
+                            sideOffset={10}
                             collisionPadding={48}
                         >
                             <DropdownMenuItem className="flex items-center gap-2 my-2">
@@ -73,7 +91,7 @@ const Navbar = () => {
                     </DropdownMenu>
                 </div>
             </div>
-        </>
+        </header>
     );
 };
 

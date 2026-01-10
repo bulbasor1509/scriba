@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "@/lib/auth-client";
+import { signUp } from "@/lib/auth-client";
 import {
     Field,
     FieldError,
@@ -16,8 +16,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
-
-const SignInSchema = z.object({
+const SignUpSchema = z.object({
+    name: z.string().min(6, "name must be atleast 6 characters"),
     email: z.email(),
     password: z
         .string()
@@ -25,22 +25,25 @@ const SignInSchema = z.object({
         .max(12, "password must be atmost 12 characters"),
 });
 
-const SignInPage = () => {
+const SignUpPage = () => {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | null>();
 
-    const form = useForm<z.infer<typeof SignInSchema>>({
-        resolver: zodResolver(SignInSchema),
+    const form = useForm<z.infer<typeof SignUpSchema>>({
+        resolver: zodResolver(SignUpSchema),
         defaultValues: {
+            name: "",
             email: "",
             password: "",
         },
     });
 
-    function onSubmit(data: z.infer<typeof SignInSchema>) {
+    function onSubmit(data: z.infer<typeof SignUpSchema>) {
+        setError(null);
         startTransition(async () => {
-            const result = await signIn.email({
+            const result = await signUp.email({
+                name: data.name,
                 email: data.email,
                 password: data.password,
             });
@@ -48,14 +51,20 @@ const SignInPage = () => {
             if (result.error) setError(result.error.message);
             else router.push("/");
         });
+
+        console.log(error);
     }
 
     return (
         <div className="min-h-screen flex items-center justify-center">
             <div className="max-w-md w-full p-6 space-y-4">
                 <div>
-                    <div className="text-xl font-semibold capitalize">Sign In</div>
-                    <div className="text-sm capitalize text-gray-600">enter your credentials to sign in</div>
+                    <div className="text-xl font-semibold capitalize">
+                        Sign Up
+                    </div>
+                    <div className="text-sm capitalize text-gray-600">
+                        enter your credentials to sign up
+                    </div>
                 </div>
                 <form
                     className="space-y-4"
@@ -63,11 +72,41 @@ const SignInPage = () => {
                 >
                     <FieldGroup>
                         <Controller
+                            name="name"
+                            control={form.control}
+                            render={({ field, fieldState }) => (
+                                <Field data-invalid={fieldState.invalid}>
+                                    <FieldLabel
+                                        htmlFor="name"
+                                        className="capitalize text-sm"
+                                    >
+                                        full name
+                                    </FieldLabel>
+                                    <Input
+                                        {...field}
+                                        id="name"
+                                        aria-invalid={fieldState.invalid}
+                                        placeholder="name"
+                                        autoComplete="off"
+                                        className="outline-none rounded-sm focus-visible:ring-0"
+                                    />
+                                    {fieldState.invalid && (
+                                        <FieldError
+                                            errors={[fieldState.error]}
+                                        />
+                                    )}
+                                </Field>
+                            )}
+                        />
+                        <Controller
                             name="email"
                             control={form.control}
                             render={({ field, fieldState }) => (
                                 <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel htmlFor="email" className="capitalize text-sm">
+                                    <FieldLabel
+                                        htmlFor="email"
+                                        className="capitalize text-sm"
+                                    >
                                         email
                                     </FieldLabel>
                                     <Input
@@ -76,7 +115,7 @@ const SignInPage = () => {
                                         aria-invalid={fieldState.invalid}
                                         placeholder="email id"
                                         autoComplete="off"
-                                        className="outline-none rounded-none focus-visible:ring-0"
+                                        className="outline-none rounded-sm focus-visible:ring-0"
                                     />
                                     {fieldState.invalid && (
                                         <FieldError
@@ -92,16 +131,20 @@ const SignInPage = () => {
                             control={form.control}
                             render={({ field, fieldState }) => (
                                 <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel htmlFor="password" className="capitalize text-sm">
+                                    <FieldLabel
+                                        htmlFor="password"
+                                        className="capitalize text-sm"
+                                    >
                                         password
                                     </FieldLabel>
                                     <Input
                                         {...field}
                                         id="password"
+                                        type="password"
                                         aria-invalid={fieldState.invalid}
                                         placeholder="password"
                                         autoComplete="off"
-                                        className="outline-none rounded-none focus-visible:ring-0"
+                                        className="outline-none rounded-sm focus-visible:ring-0"
                                     />
                                     {fieldState.invalid && (
                                         <FieldError
@@ -113,14 +156,17 @@ const SignInPage = () => {
                         />
 
                         <Field orientation="horizontal">
-                            <Button type="submit" className="w-full rounded-none uppercase text-sm font-light">
+                            <Button
+                                type="submit"
+                                className="w-full rounded-sm uppercase text-sm font-light"
+                            >
                                 {isPending ? (
                                     <>
                                         <Loader2 className="size-4 animate-spin" />
                                         <span>Loading...</span>
                                     </>
                                 ) : (
-                                    <span>Sign In</span>
+                                    <span>Sign Up</span>
                                 )}
                             </Button>
                         </Field>
@@ -131,4 +177,4 @@ const SignInPage = () => {
     );
 };
 
-export default SignInPage;
+export default SignUpPage;

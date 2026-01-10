@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import SidebarLayout from "@/components/SidebarLayout";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -25,29 +27,18 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <div className="flex flex-col h-screen overflow-hidden">
-                    {/* Top Navbar */}
-                    <header className="shrink-0">
-                        <Navbar />
-                    </header>
-
-                    {/* Main area */}
-                    <div className="flex flex-1 overflow-hidden">
-                        {/* Sidebar (no scroll) */}
-                        <aside className="w-64 shrink-0">
-                            <Sidebar />
-                        </aside>
-
-                        {/* Page content (scrollable) */}
-                        <main className="flex-1 overflow-y-auto p-4">
-                            {children}
-                        </main>
-                    </div>
-                </div>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="light"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    {children}
+                </ThemeProvider>
             </body>
         </html>
     );
