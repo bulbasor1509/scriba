@@ -23,12 +23,12 @@ model User {
     updatedAt     DateTime  @updatedAt
     sessions      Session[]
     accounts      Account[]
-
-    stories   Story[]
-    comments  Comment[]
-    likes     Like[]
-    followers Follows[] @relation("Followers")
-    following Follows[] @relation("Following")
+    bio           String    @default("")
+    stories       Story[]
+    comments      Comment[]
+    likes         Like[]
+    followers     Follows[] @relation("Followers")
+    following     Follows[] @relation("Following")
 
     @@unique([email])
     @@map("user")
@@ -94,14 +94,15 @@ model Comment {
 }
 
 model Story {
-    id       String    @id @default(cuid())
-    title    String
-    content  String
-    auther   User      @relation(fields: [autherId], references: [id])
-    autherId String
-    comments Comment[]
-    likes    Like[]
-    tags     Tag[]     @relation("StoryTags")
+    id        String    @id @default(cuid())
+    title     String
+    content   String
+    auther    User      @relation(fields: [autherId], references: [id])
+    autherId  String
+    createdAt DateTime  @default(now())
+    comments  Comment[]
+    likes     Like[]
+    tags      Tag[]     @relation("StoryTags")
 }
 
 model Tag {

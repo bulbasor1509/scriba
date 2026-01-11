@@ -27,10 +27,15 @@
     "next": "16.1.1",
     "next-themes": "^0.4.6",
     "pg": "^8.16.3",
+    "quill": "^2.0.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.70.0",
+    "react-quill": "2",
     "secret": "^1.2.0",
+    "slate": "^0.120.0",
+    "slate-history": "^0.113.1",
+    "slate-react": "^0.120.0",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {

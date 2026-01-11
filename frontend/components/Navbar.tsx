@@ -36,7 +36,7 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
 
                 {/* Right */}
                 <div className="flex items-center gap-6">
-                    <Link href="/" className="text-sm hover:underline capitalize">
+                    <Link href="/new-story" className="text-sm capitalize">
                         write
                     </Link>
 
