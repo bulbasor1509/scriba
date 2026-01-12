@@ -13,7 +13,6 @@ const TopPicks = () => {
                     </div>
                 </div>
 
-                {/* Push this to the bottom */}
                 <div className="mt-auto class text-sm text-gray-500">
                     Click on any story <Bookmark size={16} className="inline"/> to easily add it to your reading.
                 </div>

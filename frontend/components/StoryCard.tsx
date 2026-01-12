@@ -9,7 +9,7 @@ type StoryCardProps = Pick<Story, "id" | "title" | "content" | "createdAt"> & {
 };
 
 const StoryCard = ({ id, title, content, createdAt, auther }: StoryCardProps) => {
-    const formattedDate = createdAt.toLocaleDateString("en-IN", {
+    const formattedDate = new Date(createdAt).toLocaleDateString("en-IN", {
         year: "numeric",
         month: "long",
         day: "numeric",
