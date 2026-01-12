@@ -26,7 +26,7 @@ const StoryReadPage = async ({
     console.log(story.createdAt);
 
     return (
-        <Wrapper classNames="space-y-4">
+        <Wrapper className="space-y-4">
             <div className="capitalize text-2xl font-bold">{story.title}</div>
             <div className="text-start md:w-3/5 text-xs md:text-sm text-gray-500 mt-2 flex items-center gap-2">
                 <div>{formattedDate}</div>

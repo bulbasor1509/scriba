@@ -1,22 +1,26 @@
-"use client";
-
-import { useState } from "react";
+import { cookies } from "next/headers";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import { auth } from "@/lib/auth";
 
-export default function SidebarLayout({
+export default async function SidebarLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+
+    const session = await auth.api.getSession({
+        headers: {
+            cookie:  (await cookies()).toString()
+        }
+    });
 
     return (
-        <div>
-            <Navbar/>
+        <div className="w-screen h-screen">
+            <Navbar session={session}/>
             <div className="flex">
-                <Sidebar/>
-                <div>
+                <Sidebar session={session}/>
+                <div className="w-full">
                     {children}
                 </div>
             </div>
