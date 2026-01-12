@@ -1,6 +1,14 @@
 "use client";
 
-import { Bookmark, House, PanelLeft, TrendingUp, User, Users } from "lucide-react";
+import {
+    Bookmark,
+    BookText,
+    House,
+    PanelLeft,
+    TrendingUp,
+    User,
+    Users,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -13,40 +21,43 @@ import {
     SidebarSeparator,
 } from "./ui/sidebar";
 import { Separator } from "./ui/separator";
+import { sessionType } from "@/types/user";
 
-const sidebarItems = [
-    { name: "home", path: "/", icon: House },
-    { name: "library", path: "/bookmarks", icon: Bookmark },
-    { name: "profile", path: "/profile", icon: User },
-    { name: "stats", path: "/stats", icon: TrendingUp },
-];
-
-const AppSidebar = () => {
+const AppSidebar = ({ session }: { session: sessionType }) => {
+    const sidebarItems = [
+        { name: "home", path: "/", icon: House },
+        { name: "library", path: "/bookmarks", icon: Bookmark },
+        { name: "profile", path: `/profile/${session?.user.id}`, icon: User },
+        { name: "stories", path: "/me/stories", icon: BookText },
+        { name: "stats", path: "/stats", icon: TrendingUp },
+    ];
     return (
         <Sidebar>
-            <SidebarHeader className="h-18"/>
+            <SidebarHeader className="h-18" />
             <SidebarContent>
                 {sidebarItems.map((item) => (
-                    <SidebarMenuItem key={item.name} className="capitalize px-4 space-y-8">
+                    <SidebarMenuItem
+                        key={item.name}
+                        className="capitalize px-4 space-y-8"
+                    >
                         <SidebarMenuButton asChild>
                             <Link href={item.path}>
-                                <item.icon size={10}/>
+                                <item.icon size={10} />
                                 <span className="text-base">{item.name}</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 ))}
-                <SidebarSeparator className="mx-0 mt-10"/>
+                <SidebarSeparator className="mx-0 mt-10" />
                 <SidebarMenuItem className="capitalize px-4 space-y-8">
                     <SidebarMenuButton asChild>
-                            <Link href="/following">
-                                <Users size={10}/>
-                                <span className="text-base">following</span>
-                            </Link>
-                        </SidebarMenuButton>
+                        <Link href="/me/following">
+                            <Users size={10} />
+                            <span className="text-base">following</span>
+                        </Link>
+                    </SidebarMenuButton>
                 </SidebarMenuItem>
             </SidebarContent>
-
         </Sidebar>
     );
 };

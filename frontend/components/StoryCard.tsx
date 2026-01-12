@@ -1,11 +1,14 @@
-import { Story } from "@/generated/prisma/client";
+import { Story, User } from "@/generated/prisma/client";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Heart, MessageCircle } from "lucide-react";
+import UserAvatar from "./UserAvatar";
 
-type StoryCardProps = Pick<Story, "id" | "title" | "content" | "createdAt">;
+type StoryCardProps = Pick<Story, "id" | "title" | "content" | "createdAt"> & {
+    auther: User
+};
 
-const StoryCard = ({ id, title, content, createdAt }: StoryCardProps) => {
+const StoryCard = ({ id, title, content, createdAt, auther }: StoryCardProps) => {
     const formattedDate = createdAt.toLocaleDateString("en-IN", {
         year: "numeric",
         month: "long",
@@ -13,6 +16,10 @@ const StoryCard = ({ id, title, content, createdAt }: StoryCardProps) => {
     });
     return (
         <Link href={`/story/${id}`}>
+            <div className="flex items-center gap-2 text-xs mb-2 text-gray-500">
+                <UserAvatar username={auther.name} size={4}/>
+                <div>{auther.name}</div>
+            </div>
             <div className="space-y-4">
                 <div className="text-lg capitalize font-bold">{title}</div>
                 <div className="space-y-2">
