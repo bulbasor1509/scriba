@@ -7,24 +7,23 @@ type UserCardProps = {
 
 const Auther = ({ auther }: UserCardProps) => {
     return (
-        <div className="flex items-center justify-between">
-            <div>
-                <Avatar>
-                    <AvatarImage
-                        src="https://avatar.vercel.sh/rauchg"
-                        sizes={"size-14"}
-                    />
+        <div>
+            {/* <div className="grid grid-cols-12 place-items-center">
+                <Avatar className="w-16 h-16 col-span-1">
+                    <AvatarImage src="https://avatar.vercel.sh/rauchg" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
-                <div className="text-sm md:text-xl md:font-medium capitalize mt-4">
-                    written by {auther.name}
+                <div className="col-span-11 place-self-start">
+                    <div className="text-sm md:text-lg md:font-medium capitalize mt-4">
+                        written by {auther.name}
+                    </div>
+                    <div className="flex gap-2 text-sm mt-2 text-gray-700">
+                        <div>0 followers</div>
+                        <div>0 following</div>
+                    </div>
                 </div>
-                <div className="text-sm mt-2 text-gray-700">
-                    <div>0 followers</div>
-                    <div>0 following</div>
-                </div>
-                <div className="text-sm mt-2 text-gray-600">{auther.bio}</div>
-            </div>
+            </div> */}
+            {/* <div className="text-sm mt-2 text-gray-600">{auther.bio}</div> */}
         </div>
     );
 };
