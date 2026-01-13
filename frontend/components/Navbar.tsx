@@ -135,12 +135,10 @@ const Navbar = ({ session }: { session: sessionType }) => {
                             <NavigationMenuItem>
                                 {user ? (
                                     <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Avatar>
-                                                <UserAvatar
-                                                    username={user.name ?? ""}
-                                                />
-                                            </Avatar>
+                                        <DropdownMenuTrigger id="user-menu-trigger">
+                                            <UserAvatar
+                                                username={user.name}
+                                            />
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent
                                             className="rounded-sm p-4 bg-white min-w-24"

@@ -7,7 +7,7 @@ interface CommentItemProps {
 }
 
 const CommentItem = ({ comment }: CommentItemProps) => {
-    const formattedDate = new Date(comment.createdAt).toLocaleDateString("en-IN", {
+    const formattedDate = comment.createdAt.toLocaleDateString("en-IN", {
         year: "numeric",
         month: "long",
         day: "numeric",

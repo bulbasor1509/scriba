@@ -158,7 +158,7 @@ const SignUpPage = () => {
                         <Field orientation="horizontal">
                             <Button
                                 type="submit"
-                                className="w-full rounded-sm uppercase text-sm font-light"
+                                className="w-full rounded-sm capitalize text-sm font-light"
                             >
                                 {isPending ? (
                                     <>

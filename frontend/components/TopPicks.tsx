@@ -5,7 +5,7 @@ import Link from "next/link";
 import UserAvatar from "./UserAvatar";
 
 function dateFormatter(date: Date): string {
-    const formattedDate = new Date(date).toLocaleDateString("en-IN", {
+    const formattedDate = date.toLocaleDateString("en-IN", {
         year: "numeric",
         month: "long",
         day: "numeric",
