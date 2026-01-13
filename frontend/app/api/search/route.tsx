@@ -22,7 +22,9 @@ export async function GET(req: Request) {
             ],
         },
         include: {
-            auther: true
+            auther: true,
+            likes: true,
+            comments: true
         },
         take: 5,
         orderBy: {

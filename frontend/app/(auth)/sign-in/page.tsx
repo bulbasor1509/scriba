@@ -113,11 +113,11 @@ const SignInPage = () => {
                         />
 
                         <Field orientation="horizontal">
-                            <Button type="submit" className="w-full rounded-sm uppercase text-sm font-light">
+                            <Button type="submit" className="w-full rounded-sm capitalize text-sm font-light">
                                 {isPending ? (
                                     <>
                                         <Loader2 className="size-4 animate-spin" />
-                                        <span>Loading...</span>
+                                        <span>Signing In...</span>
                                     </>
                                 ) : (
                                     <span>Sign In</span>

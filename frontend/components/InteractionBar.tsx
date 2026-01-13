@@ -58,8 +58,8 @@ const InteractionBar = ({
                 variant="ghost"
                 size="sm"
                 className={cn(
-                    "flex items-center gap-2 hover:bg-red-50 hover:text-red-600 transition-colors",
-                    liked && "text-red-600"
+                    "flex items-center gap-2",
+                    liked && "text-black"
                 )}
                 onClick={handleLike}
                 disabled={isPending}
@@ -74,7 +74,7 @@ const InteractionBar = ({
             <Button
                 variant="ghost"
                 size="sm"
-                className="flex items-center gap-2 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                className="flex items-center gap-2 text-black"
                 onClick={scrollToComments}
             >
                 <MessageCircle size={20} />

@@ -1,7 +1,11 @@
+import Wrapper from "@/components/Wrapper";
+
 const Library = () => {
     return (
         <>
-            <div>hello from library</div>
+            <Wrapper>
+                Nothing in bookmarks for now
+            </Wrapper>
         </>
     )
 }

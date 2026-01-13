@@ -5,7 +5,7 @@ import React from "react"
 const Wrapper = ({children,  className}: {children: React.ReactNode, className?:string}) => {
     return(
         <>
-            <div className={clsx("p-12 md:px-16", className)}>
+            <div className={clsx("px-16 pb-16 pt-32", className)}>
                 {children}
             </div>
         </>

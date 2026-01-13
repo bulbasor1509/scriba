@@ -27,6 +27,8 @@ const FollowingPage = async () => {
                             stories: {
                                 include: {
                                     auther: true,
+                                    likes: true,
+                                    comments: true
                                 },
                             },
                         },
@@ -58,6 +60,8 @@ const FollowingPage = async () => {
                             content={story.content}
                             createdAt={story.createdAt}
                             auther={story.auther}
+                            likes={story.likes}
+                            comments={story.comments}
                         />
 
                         {index !== stories.length - 1 && (

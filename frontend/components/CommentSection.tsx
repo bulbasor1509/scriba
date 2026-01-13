@@ -18,7 +18,11 @@ interface CommentSectionProps {
     } | null;
 }
 
-const CommentSection = ({ storyId, comments, currentUser }: CommentSectionProps) => {
+const CommentSection = ({
+    storyId,
+    comments,
+    currentUser,
+}: CommentSectionProps) => {
     const [content, setContent] = useState("");
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
@@ -48,19 +52,20 @@ const CommentSection = ({ storyId, comments, currentUser }: CommentSectionProps)
                         placeholder="Write a thoughtful comment..."
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                        className="resize-none min-h-[100px]"
+                        rows={3}
+                        className="resize-none outline-none rounded-sm focus-visible:ring-0"
                     />
                     <div className="flex justify-end">
-                        <Button 
-                            onClick={handleSubmit} 
-                            disabled={isPending || !content.trim()}
+                        <Button
+                            onClick={handleSubmit}
+                            // disabled={isPending || !content.trim()}
                         >
                             {isPending ? "Posting..." : "Post Comment"}
                         </Button>
                     </div>
                 </div>
             ) : (
-                 <div className="p-4 bg-gray-100 rounded-md text-center text-sm text-muted-foreground">
+                <div className="p-4 bg-gray-100 rounded-md text-center text-sm text-muted-foreground">
                     Please log in to leave a comment.
                 </div>
             )}

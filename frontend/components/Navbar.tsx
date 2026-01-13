@@ -33,6 +33,7 @@ import { signOutAction } from "@/actions/user";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "./ui/input";
 import { usePathname, useRouter } from "next/navigation";
+import clsx from "clsx";
 
 const Navbar = ({ session }: { session: sessionType }) => {
     const user = session?.user;
@@ -41,6 +42,7 @@ const Navbar = ({ session }: { session: sessionType }) => {
     const router = useRouter();
     const pathName = usePathname();
     const debounceRef = useRef<NodeJS.Timeout | null>(null);
+    const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
         if (!searchOpen) return;
@@ -61,11 +63,26 @@ const Navbar = ({ session }: { session: sessionType }) => {
             }
         };
     }, [searchQuery, searchOpen]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 0);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
         <>
             <div className="">
                 {searchOpen ? (
-                    <NavigationMenu className="z-200 h-16 flex-1 justify-between min-w-full border-b border-gray-100 bg-white">
+                    <NavigationMenu
+                        className={clsx(
+                            "fixed top-0 h-16 flex-1 justify-between min-w-full px-4 border-b transition-all",
+                            scrolled ? "z-200 bg-white" : "z-200 bg-white"
+                        )}
+                    >
                         <Input
                             className="w-full h-full outline-none border-none shadow-none focus-visible:ring-0"
                             value={searchQuery}
@@ -81,7 +98,12 @@ const Navbar = ({ session }: { session: sessionType }) => {
                         />
                     </NavigationMenu>
                 ) : (
-                    <NavigationMenu className="z-100 h-16 flex-1 justify-between min-w-full px-4 border-b border-gray-100">
+                    <NavigationMenu
+                        className={clsx(
+                            "fixed top-0 h-16 flex-1 justify-between min-w-full px-4 border-b transition-all",
+                            scrolled ? "z-200 bg-white" : "z-100"
+                        )}
+                    >
                         <div className="flex items-center gap-2 font-semibold uppercase">
                             <SidebarTrigger size="icon-lg" />
                             scriba
@@ -121,27 +143,27 @@ const Navbar = ({ session }: { session: sessionType }) => {
                                             </Avatar>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent
-                                            className="rounded-sm p-4 bg-white"
+                                            className="rounded-sm p-4 bg-white min-w-24"
                                             sideOffset={18}
                                             collisionPadding={20}
                                         >
                                             <DropdownMenuItem className="flex items-center gap-2 my-2">
-                                                <Avatar>
-                                                    <AvatarImage src="https://avatar.vercel.sh/rauchg" />
-                                                    <AvatarFallback>
-                                                        CN
-                                                    </AvatarFallback>
-                                                </Avatar>
+                                                <UserAvatar
+                                                    username={user.name}
+                                                    size={100}
+                                                />
                                                 <div>
-                                                    <div className="capitalize">
-                                                        prathamesh khochade
-                                                    </div>
-                                                    <div className="text-xs capitalize text-gray-600">
-                                                        view profile
-                                                    </div>
+                                                    <Link href={`/profile/${user.id}`}>
+                                                        <div className="capitalize">
+                                                            {user.name}
+                                                        </div>
+                                                        <div className="text-xs capitalize text-gray-600">
+                                                            view profile
+                                                        </div>
+                                                    </Link>
                                                 </div>
                                             </DropdownMenuItem>
-                                            <DropdownMenuItem className="flex items-center gap-2 capitalize">
+                                            <DropdownMenuItem className="flex items-center gap-2 capitalize w-40">
                                                 <Settings className="w-4 h-4" />{" "}
                                                 settings
                                             </DropdownMenuItem>

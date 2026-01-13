@@ -10,7 +10,9 @@ import { MessageCircle } from "lucide-react";
 export default async function Home() {
     const stories = await prisma.story.findMany({
         include: {
-            auther: true
+            auther: true,
+            likes: true,
+            comments: true
         }
     });
 
@@ -25,6 +27,8 @@ export default async function Home() {
                             content={story.content}
                             createdAt={story.createdAt}
                             auther={story.auther}
+                            likes={story.likes}
+                            comments={story.comments}
                         />
                         {index !== stories.length - 1 && (
                             <Separator className="my-4" />

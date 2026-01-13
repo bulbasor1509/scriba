@@ -1,14 +1,16 @@
-import { Story, User } from "@/generated/prisma/client";
+import { Comment, Like, Story, User } from "@/generated/prisma/client";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Heart, MessageCircle } from "lucide-react";
 import UserAvatar from "./UserAvatar";
 
 type StoryCardProps = Pick<Story, "id" | "title" | "content" | "createdAt"> & {
-    auther: User
+    auther: User,
+    likes: Like[],
+    comments: Comment[]
 };
 
-const StoryCard = ({ id, title, content, createdAt, auther }: StoryCardProps) => {
+const StoryCard = ({ id, title, content, createdAt, auther, likes, comments }: StoryCardProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString("en-IN", {
         year: "numeric",
         month: "long",
@@ -16,7 +18,7 @@ const StoryCard = ({ id, title, content, createdAt, auther }: StoryCardProps) =>
     });
     return (
         <Link href={`/story/${id}`}>
-            <div className="flex items-center gap-2 text-xs mb-2 text-gray-500">
+            <div className="flex items-center gap-2 text-xs mb-2 text-gray-500 capitalize">
                 <UserAvatar username={auther.name} size={4}/>
                 <div>{auther.name}</div>
             </div>
@@ -30,11 +32,11 @@ const StoryCard = ({ id, title, content, createdAt, auther }: StoryCardProps) =>
                         <div>{formattedDate}</div>
                         <Button variant="ghost">
                             <Heart size={16} />
-                            <span>10K</span>
+                            <span>{likes.length}</span>
                         </Button>
                         <Button variant="ghost">
                             <MessageCircle size={16} />
-                            <span>101</span>
+                            <span>{comments.length}</span>
                         </Button>
                     </div>
                 </div>

@@ -2,13 +2,15 @@
 
 import StoryCard from "@/components/StoryCard";
 import Wrapper from "@/components/Wrapper";
-import { Prisma, Story, User } from "@/generated/prisma/client";
+import { Comment, Like, Prisma, Story, User } from "@/generated/prisma/client";
 import { Separator } from "@radix-ui/react-separator";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type SearchResultType = Story & {
-    auther: User
+    auther: User,
+    likes: Like[],
+    comments: Comment[]
 }
 
 type ApiResponse = {
@@ -48,6 +50,8 @@ const SearchPage = () => {
                                 content={story.content}
                                 createdAt={story.createdAt}
                                 auther={story.auther}
+                                likes={story.likes}
+                                comments={story.comments}
                             />
                             {index !== stories.length - 1 && (
                                 <Separator className="my-4" />

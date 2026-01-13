@@ -22,6 +22,8 @@ const UserStoriesPage = async () => {
         },
         include: {
             auther: true,
+            likes: true,
+            comments: true
         },
     });
 
@@ -46,6 +48,8 @@ const UserStoriesPage = async () => {
                                         content={story.content}
                                         createdAt={story.createdAt}
                                         auther={story.auther}
+                                        likes={story.likes}
+                                        comments={story.comments}
                                     />
                                     {index !== stories.length - 1 && (
                                         <Separator className="my-4" />

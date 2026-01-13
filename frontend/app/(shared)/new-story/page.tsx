@@ -11,6 +11,7 @@ import { storySchema } from "@/types/story";
 import { useTransition } from "react";
 import postStoryAction from "@/actions/story";
 import { Loader2 } from "lucide-react";
+import Wrapper from "@/components/Wrapper";
 
 const NewStoryPage = () => {
     const [isPending, startTransition] = useTransition();
@@ -30,7 +31,7 @@ const NewStoryPage = () => {
     }
 
     return (
-        <div>
+        <Wrapper>
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
                 <FieldGroup>
                     <Controller
@@ -86,7 +87,7 @@ const NewStoryPage = () => {
                     </div>
                 </FieldGroup>
             </form>
-        </div>
+        </Wrapper>
     );
 };
 

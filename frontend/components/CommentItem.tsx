@@ -18,7 +18,7 @@ const CommentItem = ({ comment }: CommentItemProps) => {
             <UserAvatar username={comment.auther.name} size={8} />
             <div className="flex-1 space-y-2">
                 <div className="flex items-center justify-between">
-                    <span className="font-medium text-sm">{comment.auther.name}</span>
+                    <span className="font-medium text-sm capitalize">{comment.auther.name}</span>
                     <span className="text-xs text-muted-foreground">{formattedDate}</span>
                 </div>
                 <p className="text-sm text-gray-700 whitespace-pre-wrap">
